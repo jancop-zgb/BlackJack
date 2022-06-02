@@ -9,7 +9,7 @@ using namespace std;
 
 //enum types for the card suits
 enum card_suit {
-	S, H, D, C
+	P, H, K, T
 };
 
 //Global Variables - yes I know they are bad but rather than pass this everywhere I put it here. Also allows me to change the min bet in one spot rather than everywhere
@@ -617,13 +617,13 @@ Fairly self-explanatory...takes in a number between 0-4 and returns the suit bas
 char printSuit(card new_card) {
 	switch (new_card.suit) {
 	case 0:
-		return 'S';
+		return 'P';
 	case 1:
 		return 'H';
 	case 2:
-		return 'D';
+		return 'K';
 	case 3:
-		return 'C';
+		return 'T';
 	}
 }
 
@@ -701,16 +701,16 @@ card deal() {
 	int suit = rand() % 4;
 	switch (suit) { //makes sure the random number is between 1 and 4 for the suit
 	case 0:
-		new_card.suit = S;
+		new_card.suit = P;
 		break;
 	case 1:
 		new_card.suit = H;
 		break;
 	case 2:
-		new_card.suit = D;
+		new_card.suit = K;
 		break;
 	case 3:
-		new_card.suit = C;
+		new_card.suit = T;
 		break;
 	}
 
