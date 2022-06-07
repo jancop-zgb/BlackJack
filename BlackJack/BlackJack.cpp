@@ -132,7 +132,7 @@ int main() {
 			}
 
 			if (cond && igraci.size() > 1) {//if they have played at least once
-				cout << igraci[i].info.korisnicko_ime << " Zelite li nastaviti igrati(I) ili odustati(O)" << endl;
+				cout << igraci[i].info.korisnicko_ime << " Zelite li nastaviti(N) ili odustati(O)" << endl;
 				cin >> input; //takes in input
 				if (input == 'o' || input == 'O') { //player want to quit
 					spremi(igraci[i]); //saves info
@@ -158,10 +158,10 @@ void prikaziPravila() {
 	Simple method that displays the menu for the game only
 */
 void prikaziMeni() {
-	cout << "Welcome to the game of Blackjack!" << endl; //output
-	cout << "Please select an option below." << endl; //output
-	cout << "1) Rules" << endl; //output
-	cout << "2) Play" << endl; //output
+	cout << "Dobrodosli u igru Blackjack" << endl; //output
+	cout << "Molim vas odaberite opciju." << endl; //output
+	cout << "1) Pravila" << endl; //output
+	cout << "2) Igraj" << endl; //output
 }
 /**
 	Rules for the dealer. They hit on everything up to 17 including a soft 17
@@ -181,7 +181,7 @@ void igraj(vector<igrac>& players) {
 
 	for (int i = 1; i < players.size(); i++) { //cycles through the players
 		ulog(players[i]); //players bet here
-		cout << "Money: " << players[i].info.novac << setw(10) << "Bet: " << players[1].ulog << endl; //display their money and bet amount
+		cout << "Novac: " << players[i].info.novac << setw(10) << "Uplata: " << players[1].ulog << endl; //display their money and bet amount
 	}
 
 	/**the below function goes through each player and deals them two cards. To make it more realistic
@@ -197,14 +197,14 @@ void igraj(vector<igrac>& players) {
 		The below function shows each players score but the dealers
 	*/
 	for (int i = 1; i < players.size(); i++) {
-		cout << players[i].info.korisnicko_ime << " has: " << rezultat(players[i].hand) << setw(10) << endl;
+		cout << players[i].info.korisnicko_ime << " ima: " << rezultat(players[i].hand) << setw(10) << endl;
 	}
 
 	/**
 		The below function displays each persons cards
 	*/
 	for (int i = 0; i < players.size(); i++) {
-		cout << players[i].info.korisnicko_ime << " Cards:" << endl;
+		cout << players[i].info.korisnicko_ime << " Karte:" << endl;
 		printajKarte(players[i].hand);
 	}
 
@@ -227,7 +227,7 @@ void igraj(vector<igrac>& players) {
 					for (int i = 1; i < players.size(); i++) {
 						isplata(players[0], players[i]);
 					}
-					input = 'S'; //sets input to stay since they just lost
+					input = 'O'; //sets input to stay since they just lost
 				}
 				cont = false; //if the dealer didn't have blackjack this is now false
 			}
@@ -242,7 +242,7 @@ void igraj(vector<igrac>& players) {
 					for (int i = 1; i < players.size(); i++) {
 						isplata(players[0], players[i]);
 					}
-					input = 'S'; //input is now S since the players lost					
+					input = 'O'; //input is now S since the players lost					
 				}
 				cont = false; //if the dealer doesn't have 21 we don't care about this anymore
 			}
@@ -254,44 +254,44 @@ void igraj(vector<igrac>& players) {
 				The most complicated first - if they have a pair of 5's they can split, double down, hit, or stay
 				*/
 				if (((players[i].hand[0].vrijednost >= 10 && players[i].hand[1].vrijednost >= 10) || players[i].hand[0].vrijednost == players[i].hand[1].vrijednost) && players[i].hand.size() == 2 && rezultat(players[i].hand) == 10) {
-					cout << players[i].info.korisnicko_ime << " score: " << rezultat(players[i].hand) << endl; //shows them their score
-					cout << "Would you like to Double Down(D), split(L),take a hit(H), or stay(S), default is to take a stay?" << endl; //ask them
+					cout << players[i].info.korisnicko_ime << " rezultat: " << rezultat(players[i].hand) << endl; //shows them their score
+					cout << "Zelite li duplo ili nista(D), podijeli(P), hit(H), ili ostani(O), zadano je da ostanes?" << endl; //ask them
 				}
 				else if (((players[i].hand[0].vrijednost >= 10 && players[i].hand[1].vrijednost >= 10) || (players[i].hand[0].vrijednost == players[i].hand[1].vrijednost)) && players[i].hand.size() == 2) { //if they can split their cards
-					cout << players[i].info.korisnicko_ime << " score: " << rezultat(players[i].hand) << endl; //shows them their score
-					cout << "Would you like to split(L) your cards, take a hit(H), or stay(S), default is to take a stay?" << endl; //ask them
+					cout << players[i].info.korisnicko_ime << " rezultat: " << rezultat(players[i].hand) << endl; //shows them their score
+					cout << "Zelite li podijeliti(P) svoje karte, uzeti hit(H), ili ostati(O), zadano je da ostanes?" << endl; //ask them
 				}
 				else if (players[i].hand.size() == 2 && rezultat(players[i].hand) >= 9 && rezultat(players[i].hand) <= 11 && !(imaAsa(players[i].hand))) { //can they double down
-					cout << players[i].info.korisnicko_ime << " score: " << rezultat(players[i].hand) << endl; //shows them their score
-					cout << "Would you like to Double Down(D), take a hit(H), or stay(S), default is to take a stay?" << endl; //asks them
+					cout << players[i].info.korisnicko_ime << " rezultat: " << rezultat(players[i].hand) << endl; //shows them their score
+					cout << "Zelite li duplo ili nista(D), uzeti hit(H), ili ostati(O), zadano je da ostanete?" << endl; //asks them
 				}
 				else { //they can't do anything special
-					cout << players[i].info.korisnicko_ime << " score: " << rezultat(players[i].hand) << endl; //shows them their score
-					cout << "Hit(H) or Stay(S), default is to take a stay?"; //asks them what they want to do
+					cout << players[i].info.korisnicko_ime << " rezultat: " << rezultat(players[i].hand) << endl; //shows them their score
+					cout << "Hit(H) ili ostani(O), zadano je da ostanete?"; //asks them what they want to do
 				}
 				cin >> input; //takes in the input
 				switch (input) { //what did they choose?
-				case 'L': //they wanted to split
+				case 'P': //they wanted to split
 					sijeci(players[0], players[i]); //we split them
 					printajKarte(players[i].hand); //reprint their cards in case they forgot
 					break;
 				case 'D':
 					Duplo_il_Nista(players[0], players[i]); //they double down
-					input = 'S'; //sets input to S since now they are done
+					input = 'O'; //sets input to S since now they are done
 					break;
 				case 'H':
 					players[i].hand.push_back(Jos()); //we give them one more card for their hit
 					printajKarte(players[i].hand); //reprint their cards
-					cout << players[i].info.korisnicko_ime << " score is now " << rezultat(players[i].hand) << endl; //reprint their score
+					cout << players[i].info.korisnicko_ime << " rezultat je sada " << rezultat(players[i].hand) << endl; //reprint their score
 					break;
 				default: //this is here for people can't follow directions
-					input = 's'; //input is S
+					input = 'o'; //input is S
 				}
 				if (rezultat(players[i].hand) > 21) { //if they bust they are done
-					input = 'S'; //so we can quit
+					input = 'O'; //so we can quit
 				}
 			}
-		} while (!(input == 'S' || input == 's')); //we continue doing this until they are want to stay
+		} while (!(input == 'O' || input == 'o')); //we continue doing this until they are want to stay
 	}
 
 	diler_igra(players[0]); //now the dealer plays
@@ -302,7 +302,7 @@ void igraj(vector<igrac>& players) {
 		The below method shows everybody's score and cards including dealers
 	*/
 	for (int i = 0; i < players.size(); i++) {
-		cout << players[i].info.korisnicko_ime << " score: " << rezultat(players[i].hand) << " Cards: ";
+		cout << players[i].info.korisnicko_ime << " rezultat: " << rezultat(players[i].hand) << " Karte: ";
 		printajKarte(players[i].hand);
 	}
 
@@ -311,7 +311,7 @@ void igraj(vector<igrac>& players) {
 	*/
 	for (int i = 1; i < players.size(); i++) {
 		if (rezultat(players[i].hand) > 21) { //if the player busted we tell them
-			cout << "You busted! ";
+			cout << "Izgubio si! ";
 		}
 		int win = pobjednik(players[0], players[i]); //we figure out who wins
 		if (win == 1) {
@@ -335,7 +335,7 @@ Creates new accounts for new players
 */
 racun stvori() {
 	racun user; //creates a new account
-	cout << "What is the username you'd like to use?" << endl;
+	cout << "Koje korisnicko ime zelite koristiti?" << endl;
 	fstream input; //so we can take in the input
 	string filename; //what file we will open
 
@@ -347,22 +347,22 @@ racun stvori() {
 		filename = user.korisnicko_ime + ".dat"; //adds the extension to the file
 		input.open(filename); //opens the file
 		if (!input.fail()) { //if it didn't fail the name is taken
-			cout << "This username is already taken. Please choose another one." << endl; //we tell the user
+			cout << "Ovo korisnicko ime je zauzeto, odaberite drugo." << endl; //we tell the user
 		}
 	} while (!input.fail()); //repeat until it doesn't fail
 
-	cout << "Please enter a password." << endl; //asks for password
+	cout << "Unesite lozinku." << endl; //asks for password
 	cin.ignore(); // so cin will work
 	getline(cin, user.lozinka); //takes in the line b/c it may be more than one word
 	cin.ignore(); //so the next line will wokr
 
-	cout << "Please enter your name." << endl; //asks for the users name
+	cout << "Unesite svoje ime." << endl; //asks for the users name
 	getline(cin, user.ime); //takes it in
 
-	cout << "Please enter your email address." << endl; //asks for email address
+	cout << "Unesite svoju email adresu." << endl; //asks for email address
 	cin >> user.email; //takes it in
 
-	cout << "Please enter how much money you'd like to deposit" << endl; //asks for money
+	cout << "Unesite koliko novaca zelite uplatiti." << endl; //asks for money
 	cin >> user.novac; //takes it in
 
 	user.odigrano = 0; //sets these to 0
@@ -410,7 +410,7 @@ racun ucitaj() {
 		We get the users username and password
 	*/
 	do {
-		cout << "What is your username?" << endl; //asks for username
+		cout << "Koje je vase korisnicko ime?" << endl; //asks for username
 		cin >> username; //take it in
 		filename = username + ".dat"; //append the file extension
 		input.open(filename); //opens the file //opens the file
@@ -420,7 +420,7 @@ racun ucitaj() {
 	getline(input, user.lozinka); //take in the password
 
 	do {
-		cout << "What is your password?" << endl; //asks for the password
+		cout << "Koja je vasa lozinka?" << endl; //asks for the password
 		cin >> password; //takes it in
 	} while (!(password == user.lozinka)); //checks password and keeps checking until the user gets it right
 
@@ -449,7 +449,7 @@ void osiguranje(vector<igrac>& players) {
 		if ((players[i].info.novac - (players[i].ulog / 2)) >= 0) { //can the player even make an insurance bet
 			do {
 				cin.ignore();
-				cout << "How much would you like to bet for insurance, up to " << (players[i].ulog / 2) << players[i].info.korisnicko_ime << "?(0 if you don't want to take out insurance)" << endl; //asks if they want to make an insurance bet
+				cout << "Koliko zelite uplatiti za sigurnost, do " << (players[i].ulog / 2) << players[i].info.korisnicko_ime << "?(0 ako se ne zelite osigurati)" << endl; //asks if they want to make an insurance bet
 				cin >> bet; //takes it in
 			} while (!(bet <= (players[i].ulog / 2) && bet >= 0)); //continues to do this until they input the right stuff
 
@@ -484,7 +484,7 @@ void ulog(igrac& user) {
 	int bet;
 	do {
 		cout << user.info.korisnicko_ime << endl; //so we know what player is betting
-		cout << "How much would you like to bet? (Must be greater than the " << MIN_ULOG << " and less than " << user.info.novac << ")" << endl; //we tell them what they can bet
+		cout << "Koliko novaca ulazete u igru? (Mora biti vece od " << MIN_ULOG << " i manje od " << user.info.novac << ")" << endl; //we tell them what they can bet
 		cin >> bet; //takes in their bet
 	} while (!(bet >= MIN_ULOG && bet <= user.info.novac)); //repeat until they get it right
 	user.info.novac -= bet; //subtract the bet from their money stock pile
@@ -513,10 +513,10 @@ void sijeci(igrac& dealer, igrac& user) {
 	do {
 		for (int i = 1; i < players.size(); i++) {
 			if (rezultat(players[i].hand) > 21) { //if they bust
-				input = 'S'; //they are done
+				input = 'O'; //they are done
 			}
 			else {
-				cout << "Hit(H) or Stay(S):"; //otherwise we ask them if they want to take a hit
+				cout << "Hit(H) ili Ostani(O):"; //otherwise we ask them if they want to take a hit
 				cin >> input; //take in their input
 			}
 			/**
@@ -525,10 +525,10 @@ void sijeci(igrac& dealer, igrac& user) {
 			if (input == 'H' || input == 'h') {
 				players[i].hand.push_back(Jos());
 				printajKarte(players[i].hand);
-				cout << players[i].info.korisnicko_ime << " score is now " << rezultat(players[i].hand) << endl;
+				cout << players[i].info.korisnicko_ime << " rezultat je sad " << rezultat(players[i].hand) << endl;
 			}
 		}
-	} while (!(input == 'S' || input == 's')); //we repeat this until they stop taking hits or bust
+	} while (!(input == 'O' || input == 'o')); //we repeat this until they stop taking hits or bust
 
 	diler_igra(players[0]); //dealer plays now since we need to take care of this now rather than later
 
@@ -536,7 +536,7 @@ void sijeci(igrac& dealer, igrac& user) {
 		prints the split players cards and score again
 	*/
 	for (int i = 1; i < players.size(); i++) {
-		cout << players[i].info.korisnicko_ime << " score: " << rezultat(players[i].hand) << " Cards:" << endl;
+		cout << players[i].info.korisnicko_ime << " rezultat: " << rezultat(players[i].hand) << " Karte:" << endl;
 		printajKarte(players[i].hand);
 	}
 
@@ -545,7 +545,7 @@ void sijeci(igrac& dealer, igrac& user) {
 	*/
 	for (int i = 1; i < players.size(); i++) {
 		if (rezultat(players[i].hand) > 21) {
-			cout << "You busted!"; //tells them they busted
+			cout << "Izgubio si!"; //tells them they busted
 		}
 		isplata(players[0], players[i]); //plays out the player
 	}
@@ -558,22 +558,22 @@ void isplata(igrac dealer, igrac& user) {
 		if (rezultat(user.hand) == 21 && imaAsa(user.hand) && user.hand.size() == 2) { //if the player has blackjack it's a 3:2 payout
 			user.info.novac += ((user.ulog * 3) / 2); //I think this is 3:2 odds
 			user.ulog = 0; //clears out the bet
-			cout << user.info.korisnicko_ime << " won!" << endl;
+			cout << user.info.korisnicko_ime << " je pobjedio!" << endl;
 		}
 		else {
 			user.info.novac += (user.ulog * 2); //adds the bet to the players stash of cash
 			user.ulog = 0; //clears out the bet
-			cout << user.info.korisnicko_ime << " won!" << endl;
+			cout << user.info.korisnicko_ime << " je pobjedio!" << endl;
 		}
 	}
 	else if (pobjednik(dealer, user) == 0) { //they tied
 		user.info.novac += user.ulog; //players money goes back to his pile
 		user.ulog = 0; //clears out the bet
-		cout << user.info.korisnicko_ime << " tied!" << endl;
+		cout << user.info.korisnicko_ime << "je izjednacio!" << endl;
 	}
 	else { //the dealer won.
 		user.ulog = 0; //player didn't win so all we need to do is clear out. 
-		cout << user.info.korisnicko_ime << " lost!" << endl;
+		cout << user.info.korisnicko_ime << " je izgubio!" << endl;
 	}
 }
 /**
@@ -601,7 +601,7 @@ int pobjednik(igrac dealer, igrac& user) {
 void Duplo_il_Nista(igrac dealer, igrac& user) {
 	int bet; //so we can store the new bet
 	do {
-		cout << "How much would you like to bet? (Must be greater than the " << MIN_ULOG << " and less than " << user.info.novac << ")" << endl; //asks how much they want to bet
+		cout << "Koliko zelite uloziti? (Mora biti vise od " << MIN_ULOG << " i manje od " << user.info.novac << ")" << endl; //asks how much they want to bet
 		cin >> bet; //takes it in
 	} while (!(bet > MIN_ULOG && bet <= user.ulog && bet <= user.info.novac)); //we repeat this until they get it right
 
